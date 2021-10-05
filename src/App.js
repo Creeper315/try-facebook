@@ -1,25 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect, useRef } from 'react';
+import TopNav from './topNav/topNav';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const messageRef = useRef();
+    const lastRef = useRef();
+    useEffect(() => {
+        window.mm = messageRef;
+        window.ll = lastRef;
+        if (messageRef.current) {
+            messageRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'end',
+                inline: 'nearest',
+            });
+        }
+    });
+    // element.scrollHeight - element.scrollTop === element.clientHeight
+    return (
+        <div className="main">
+            <div
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    bottom: 0,
+                    left: '50%',
+                    width: 0,
+                    border: '1px dotted grey',
+                }}
+            ></div>
+            <TopNav />
+            <div
+                className="scroll"
+                ref={messageRef}
+                onScroll={(e) => {
+                    console.log('scroll', e);
+                }}
+            >
+                <ol>
+                    <li>q</li>
+                    <li>w</li>
+                    <li>e</li>
+                    <li>r</li>
+                    <li style={{ height: 0 }} ref={lastRef}>
+                        a
+                    </li>
+                    <li>k</li>
+                </ol>
+            </div>
+        </div>
+    );
+};
 
 export default App;

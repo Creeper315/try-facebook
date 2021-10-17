@@ -14,21 +14,25 @@ const TopNav = () => {
     ];
     const array_item_small = ['Menu', 'Messanger', 'Notifications', 'Account'];
     return (
-        <div className="outer-fixed-div">
-            <div className="top-nav-main">
-                <TopNavLeft />
-                <div className="top-nav-middle">
-                    {array_item_large.map((e, idx) => (
-                        <TopNavItemLarge key={idx} />
+        <div className="top-nav-main">
+            <div className="top-nav-middle">
+                <TopNavItemLarge
+                    key={-1}
+                    TipName={'More'}
+                    onlyShrinkLabel={true}
+                />
+                {array_item_large.map((e, idx) => (
+                    <TopNavItemLarge key={idx} TipName={e} />
+                ))}
+            </div>
+            <TopNavLeft />
+
+            <div className="top-nav-right">
+                <TopNavUser />
+                <div>
+                    {array_item_small.map((e, idx) => (
+                        <TopNavItemSmall key={idx} />
                     ))}
-                </div>
-                <div className="top-nav-right">
-                    <TopNavUser />
-                    <div>
-                        {array_item_small.map((e, idx) => (
-                            <TopNavItemSmall key={idx} />
-                        ))}
-                    </div>
                 </div>
             </div>
         </div>
